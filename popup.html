@@ -13,14 +13,9 @@
             font-size: 16px;
         }
     </style>
+    <script src="popup.js" defer></script>
 </head>
 <body>
     <button id="export">Export Cookies</button>
-    <script>
-        document.getElementById('export').addEventListener('click', () => {
-            console.log('Export button clicked');
-            chrome.runtime.sendMessage({ action: 'export_cookies' });
-        });
-    </script>
 </body>
 </html>
