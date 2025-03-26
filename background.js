@@ -1,7 +1,10 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'export_cookies') {
+        console.log('Export cookies action received');
         chrome.cookies.getAll({}, (cookies) => {
+            console.log('Cookies retrieved:', cookies);
             const csv = formatCookiesToCSV(cookies);
+            console.log('CSV formatted:', csv);
             downloadCSV(csv);
         });
     }
@@ -33,11 +36,13 @@ function getMonthsDaysToExpire(now, expireDate) {
 function downloadCSV(csv) {
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
+    console.log('CSV Blob URL:', url);
     chrome.downloads.download({
         url: url,
         filename: 'cookies.csv',
         saveAs: true
     }, () => {
         URL.revokeObjectURL(url);
+        console.log('Download initiated');
     });
 }
