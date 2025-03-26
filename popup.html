@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Exporter</title>
+</head>
+<body>
+    <button id="export">Export Cookies</button>
+    <script>
+        document.getElementById('export').addEventListener('click', () => {
+            chrome.runtime.sendMessage({ action: 'export_cookies' });
+        });
+    </script>
+</body>
+</html>
