@@ -6,7 +6,13 @@
     "cookies",
     "activeTab",
     "storage",
-    "downloads"
+    "downloads",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
   ],
   "action": {
     "default_popup": "popup.html"
