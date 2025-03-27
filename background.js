@@ -32,5 +32,5 @@ function getMonthsDaysToExpire(now, expireDate) {
     const timeDiff = expireDate - now;
     const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
     const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-    return `${months} months, ${days} days`;
+    return `${months} months and ${days} days`;
 }
