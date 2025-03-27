@@ -6,13 +6,11 @@
     "cookies",
     "activeTab",
     "storage",
-    "downloads",
-    "http://*/*",
-    "https://*/*"
+    "downloads"
   ],
   "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+    "https://*.louisvuitton.com/*", // Domains must change for other websites
+    "http://*.louisvuitton.com/*"
   ],
   "action": {
     "default_popup": "popup.html"
