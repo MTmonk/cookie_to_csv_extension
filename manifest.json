@@ -8,6 +8,10 @@
     "storage",
     "downloads"
   ],
+  "host_permissions": [
+    "https://*.louisvuitton.com/*", // Domains must change for other websites
+    "http://*.louisvuitton.com/*"
+  ],
   "action": {
     "default_popup": "popup.html"
   },

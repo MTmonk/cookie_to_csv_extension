@@ -14,6 +14,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function formatCookiesToCSV(cookies) {
     const header = "name,domain,expires,months_days_to_expire";
     const rows = cookies.map(cookie => {
+        console.log('Processing cookie:', cookie);
         const name = cookie.name;
         const domain = cookie.domain;
         const expires = cookie.expirationDate ? new Date(cookie.expirationDate * 1000).toISOString() : 'Session';
@@ -31,5 +32,5 @@ function getMonthsDaysToExpire(now, expireDate) {
     const timeDiff = expireDate - now;
     const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
     const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-    return `${months} months, ${days} days`;
+    return `${months} months and ${days} days`;
 }

@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cookie Exporter</title>
-    <style>
-        body {
-            width: 200px;
-            padding: 10px;
+document.getElementById('export').addEventListener('click', () => {
+    console.log('Export button clicked');
+    chrome.runtime.sendMessage({ action: 'export_cookies' }, (response) => {
+        if (response && response.csv) {
+            const csv = response.csv;
+            console.log('CSV received:', csv);
+            downloadCSV(csv);
+        } else {
+            console.error('No CSV received');
         }
-        button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
-    <script src="popup.js" defer></script>
-</head>
-<body>
-    <button id="export">Export Cookies</button>
-</body>
-</html>
+    });
+});
+
+function downloadCSV(csv) {
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    console.log('CSV Blob URL:', url);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cookies.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    console.log('Download initiated');
+}
