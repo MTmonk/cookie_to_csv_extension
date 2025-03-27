@@ -35,17 +35,14 @@ function getMonthsDaysToExpire(now, expireDate) {
 
 function downloadCSV(csv) {
     const blob = new Blob([csv], { type: 'text/csv' });
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const url = event.target.result;
-        console.log('CSV Data URL:', url);
-        chrome.downloads.download({
-            url: url,
-            filename: 'cookies.csv',
-            saveAs: true
-        }, () => {
-            console.log('Download initiated');
-        });
-    };
-    reader.readAsDataURL(blob);
+    const url = URL.createObjectURL(blob);
+    console.log('CSV Blob URL:', url);
+    chrome.downloads.download({
+        url: url,
+        filename: 'cookies.csv',
+        saveAs: true
+    }, () => {
+        URL.revokeObjectURL(url);
+        console.log('Download initiated');
+    });
 }
