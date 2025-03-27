@@ -5,8 +5,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             console.log('Cookies retrieved:', cookies);
             const csv = formatCookiesToCSV(cookies);
             console.log('CSV formatted:', csv);
-            downloadCSV(csv);
+            sendResponse({ csv });
         });
+        return true; // Will respond asynchronously
     }
 });
 
@@ -31,18 +32,4 @@ function getMonthsDaysToExpire(now, expireDate) {
     const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30));
     const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
     return `${months} months, ${days} days`;
-}
-
-function downloadCSV(csv) {
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    console.log('CSV Blob URL:', url);
-    chrome.downloads.download({
-        url: url,
-        filename: 'cookies.csv',
-        saveAs: true
-    }, () => {
-        URL.revokeObjectURL(url);
-        console.log('Download initiated');
-    });
 }
